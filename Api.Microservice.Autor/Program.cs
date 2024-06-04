@@ -1,5 +1,6 @@
 using Api.Microservice.Autor.Aplicacion;
 using Api.Microservice.Autor.Persistencia;
+using Api.Microservice.Autor.Servicios;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,8 @@ builder.Services.AddAutoMapper(typeof(Consulta.Manejador));
 builder.Services.AddControllers().AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<Nuevo>());
 builder.Services.AddDbContext<ContextoAutor>(options =>
     options.UseMySQL(configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ITemporalStorageService, TemporalStorageService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
